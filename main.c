@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <ncurses.h>
-#include "mv.h"
+#include "mv.c"
 #include "dial.c"
 
 int main(){

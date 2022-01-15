@@ -2,6 +2,8 @@
 #include <time.h>
 #include <ncurses.h>
 
+int nanosleep(const struct timespec *req, struct timespec *rem);
+
 /*keys*/
 #define null_char '0'
 #define w         'w'
