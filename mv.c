@@ -2,17 +2,7 @@
 #include <time.h>
 #include <ncurses.h>
 #include "map.h"
-/*character movement*/
-void hero_move_left();
-void hero_move_right();
-void hero_move_up();
-void hero_move_down();
 
-/*NPC movement*/
-void enemy_move_left();
-void enemy_move_right();
-void enemy_move_up();
-void enemy_move_down();
 
 
 

@@ -15,7 +15,8 @@ int main(){
   print_sent(sen); /*sentence is put for printing*/
   print_map();
 /*main game loop*/
-  int input;
+  int * p = (int*)malloc(20);	
+	int input;
   bool key_was_preessed = false;
   do {
     input = getch();
