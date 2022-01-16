@@ -15,11 +15,11 @@ int main(){
   print_sent(sen); /*sentence is put for printing*/
   print_map();
 /*main game loop*/
-	int input;
+	int* input = (int*)malloc(sizeof(int));
   bool key_was_preessed = false;
   do {
-    input = getch();
-    switch (input){
+    *input = getch();
+    switch (*input){
       case w:
       case W:
         hero_move_up();
@@ -47,8 +47,9 @@ int main(){
       }
     
     }
- } while ((input != q) && (input != Q));
-/*screen closed*/
+ } while ((*input != q) && (*input != Q));
+	free(input);
+	/*screen closed*/
   getch();
   refresh();
   endwin();
