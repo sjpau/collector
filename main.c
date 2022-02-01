@@ -1,7 +1,7 @@
 #include <ncurses.h>
 #include "mv.c"
 #include "dial.c"
-#include "rooms.c"
+#include "rooms.h"
 
 int main(){
 

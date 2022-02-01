@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <ncurses.h>
-#include "rooms.c"
+#include "rooms.h"
 #include "def.h"
 
 static int Y;
