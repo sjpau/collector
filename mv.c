@@ -1,7 +1,11 @@
 #include <stdlib.h>
 #include <time.h>
 #include <ncurses.h>
-#include "map.c"
+#include "rooms.c"
+#include "def.h"
+
+static int Y;
+static int X;
 
 int allow_move_to(int y, int x){
   int check_cell; 
