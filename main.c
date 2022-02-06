@@ -11,8 +11,8 @@ int main(){
   noecho(); 
   curs_set(0);
 /*screen initialized*/
-  print_sent(sen); /*sentence is put for printing*/
-  print_map(60, 30);
+ /*  print_sent(sen); sentence is put for printing*/
+  PrintMap(60, 30);
 /*main game loop*/
 	int* input = (int*)malloc(10*sizeof(int));
   do {
@@ -20,19 +20,19 @@ int main(){
     switch (*input){
       case w:
       case W:
-        hero_move_up();
+        HeroMoveUp();
         break; 
       case s:
       case S:
-        hero_move_down();
+        HeroMoveDown();
         break;
       case d:
       case D:
-        hero_move_right();
+        HeroMoveRight();
         break;
       case a:
       case A:
-        hero_move_left();
+        HeroMoveLeft();
         break;
     }
  } while ((*input != q) && (*input != Q));

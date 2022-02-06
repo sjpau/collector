@@ -7,7 +7,7 @@
 static int Y;
 static int X;
 
-int allow_move_to(int y, int x){
+int CellIsEmpty(int y, int x){
   int check_cell; 
   check_cell = mvinch(y, x);
   return ((check_cell == EMPTY));
@@ -15,29 +15,29 @@ int allow_move_to(int y, int x){
 
 
 /*character movement*/
-void hero_move_left(){
-  if (allow_move_to(Y, X - 1)) {
+void HeroMoveLeft(){
+  if (CellIsEmpty(Y, X - 1)) {
     mvaddch(Y, X, EMPTY);
     X -= 1;
     mvaddch(Y, X, MVLEFT);
   }
 }
-void hero_move_right(){
-  if (allow_move_to(Y, X + 1)){
+void HeroMoveRight(){
+  if (CellIsEmpty(Y, X + 1)){
     mvaddch(Y, X, EMPTY);
     X += 1;
     mvaddch(Y, X, MVRIGHT);
   }
 }
-void hero_move_up(){
-  if (allow_move_to(Y - 1, X)){
+void HeroMoveUp(){
+  if (CellIsEmpty(Y - 1, X)){
     mvaddch(Y, X, EMPTY);
     Y -= 1;
     mvaddch(Y, X, MVUP);
   }
 } 
-void hero_move_down(){
-  if (allow_move_to(Y + 1, X)){
+void HeroMoveDown(){
+  if (CellIsEmpty(Y + 1, X)){
     mvaddch(Y, X, EMPTY);
     Y += 1;
     mvaddch(Y, X, MVDOWN);

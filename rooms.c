@@ -2,7 +2,7 @@
 #include <ncurses.h>
 
 /*TODO: allow user to choose specific char symbol*/
-void print_hor(int width, int st_x, int st_y, int edge, bool right) {
+void PrintHorizontal(int width, int st_x, int st_y, int edge, bool right) {
   if(right) {
     for (int i = 0; i < width + edge; ++i) {
       mvaddch(st_y, st_x++, '#');
@@ -18,7 +18,7 @@ void print_hor(int width, int st_x, int st_y, int edge, bool right) {
   } 
 }
 
-void print_ver(int height, int st_x, int st_y, int edge, bool up) {
+void PrintVertical(int height, int st_x, int st_y, int edge, bool up) {
   if(up) {
     for (int i = 0; i < height + edge; ++i) {
       mvaddch(st_y--, st_x, '#');
@@ -34,7 +34,7 @@ void print_ver(int height, int st_x, int st_y, int edge, bool up) {
   }
 }
 
-void print_map(int width, int height) {
+void PrintMap(int width, int height) {
   int x;
   int y;
   
@@ -67,8 +67,8 @@ void print_map(int width, int height) {
   int bot_left_x = top_left_x;
   int bot_left_y = bot_right_y; 
   /*Drawing edge walls*/
-  print_ver(height, bot_right_x, bot_right_y, 3, true);
-  print_hor(width, top_right_x, top_right_y, 3, false);
-  print_ver(height, top_left_x, top_left_y, 3, false);
-  print_hor(width, bot_left_x, bot_left_y, 3, true);
+  PrintVertical(height, bot_right_x, bot_right_y, 3, true);
+  PrintHorizontal(width, top_right_x, top_right_y, 3, false);
+  PrintVertical(height, top_left_x, top_left_y, 3, false);
+  PrintHorizontal(width, bot_left_x, bot_left_y, 3, true);
 }
