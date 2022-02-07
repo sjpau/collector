@@ -14,7 +14,7 @@
 void PrintHorizontal(int width, int stX, int stY, int edge, bool right) {
   if(right) {
     for (int i = 0; i < width + edge; ++i) {
-      mvaddch(stY, stX++, WALL); refresh();
+      mvaddch(stY, stX++, WALL); 
       refresh();
       napms(TINT);
     }
