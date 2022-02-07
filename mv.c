@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <time.h>
 #include <ncurses.h>
 #include "rooms.h"
 #include "def.h"
@@ -8,9 +7,9 @@ static int Y;
 static int X;
 
 int CellIsEmpty(int y, int x){
-  int check_cell; 
-  check_cell = mvinch(y, x);
-  return ((check_cell == EMPTY));
+  int checkCell; 
+  checkCell = mvinch(y, x);
+  return ((checkCell == EMPTY));
 }
 
 

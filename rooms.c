@@ -2,32 +2,32 @@
 #include <ncurses.h>
 
 /*TODO: allow user to choose specific char symbol*/
-void PrintHorizontal(int width, int st_x, int st_y, int edge, bool right) {
+void PrintHorizontal(int width, int stX, int stY, int edge, bool right) {
   if(right) {
     for (int i = 0; i < width + edge; ++i) {
-      mvaddch(st_y, st_x++, '#');
+      mvaddch(stY, stX++, '#');
       refresh();
       napms(40);
     }
   } else {
     for (int i = 0; i < width + edge; ++i) {
-      mvaddch(st_y, st_x--, '#');
+      mvaddch(stY, stX--, '#');
       refresh();
       napms(40);
     }
   } 
 }
 
-void PrintVertical(int height, int st_x, int st_y, int edge, bool up) {
+void PrintVertical(int height, int stX, int stY, int edge, bool up) {
   if(up) {
     for (int i = 0; i < height + edge; ++i) {
-      mvaddch(st_y--, st_x, '#');
+      mvaddch(stY--, stX, '#');
       refresh();
       napms(40);
     }
   } else {
       for (int i = 0; i < height + edge; ++i) {
-      mvaddch(st_y++, st_x, '#');
+      mvaddch(stY++, stX, '#');
       refresh();
       napms(40);
    }
@@ -40,35 +40,35 @@ void PrintMap(int width, int height) {
   
   /*allocate coordinates of the center*/
   getmaxyx(stdscr, y, x);
-  int center_x = x/2;
-  int center_y = y/2;
+  int centerX = x/2;
+  int centerY = y/2;
 
   /* should be removed after testing*/
-  //mvaddch(center_y, center_x, '#');
+  //mvaddch(centerY, centerX, '#');
 
   /*define the width and the height of squares*/
-  int sq_width = width/2;
-  int sq_height = height/2;
+  int sqrWidth = width/2;
+  int sqrHeight = height/2;
 
   /*selecting the starting point of drawing
    * in this case this point is bottom-right node of the map */
-  int bot_right_x = center_x + sq_width + 1;
-  int bot_right_y = center_y + sq_height + 1;
+  int botRightX = centerX + sqrWidth + 1;
+  int botRightY = centerY + sqrHeight + 1;
 
   /*calculating the top-right node of the map*/
-  int top_right_x = bot_right_x;
-  int top_right_y = bot_right_y - height - 2;
+  int topRightX = botRightX;
+  int topRightY = botRightY - height - 2;
 
   /*calculating the top-left node of the map*/
-  int top_left_x = bot_right_x - width - 2;
-  int top_left_y = top_right_y;
+  int topLeftX = botRightX - width - 2;
+  int topLeftY = topRightY;
 
   /*calculation the bot-left node of the map*/
-  int bot_left_x = top_left_x;
-  int bot_left_y = bot_right_y; 
+  int botLeftX = topLeftX;
+  int botLeftY = botRightY; 
   /*Drawing edge walls*/
-  PrintVertical(height, bot_right_x, bot_right_y, 3, true);
-  PrintHorizontal(width, top_right_x, top_right_y, 3, false);
-  PrintVertical(height, top_left_x, top_left_y, 3, false);
-  PrintHorizontal(width, bot_left_x, bot_left_y, 3, true);
+  PrintVertical(height, botRightX, botRightY, 3, true);
+  PrintHorizontal(width, topRightX, topRightY, 3, false);
+  PrintVertical(height, topLeftX, topLeftY, 3, false);
+  PrintHorizontal(width, botLeftX, botLeftY, 3, true);
 }

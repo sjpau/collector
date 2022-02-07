@@ -11,13 +11,13 @@ int main(){
   noecho(); 
   curs_set(0);
 /*screen initialized*/
- /*  print_sent(sen); sentence is put for printing*/
+ /*  PrintSentence(sen); sentence is put for printing*/
   PrintMap(60, 30);
 /*main game loop*/
-	int* input = (int*)malloc(10*sizeof(int));
+	int input;
   do {
-    *input = getch();
-    switch (*input){
+    input = getch();
+    switch (input){
       case w:
       case W:
         HeroMoveUp();
@@ -35,8 +35,8 @@ int main(){
         HeroMoveLeft();
         break;
     }
- } while ((*input != q) && (*input != Q));
-	free(input);
+ } while ((input != q) && (input != Q));
+
 	/*screen closed*/
   getch();
   refresh();
