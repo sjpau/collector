@@ -94,7 +94,7 @@ void PrintMap(int width, int height) {
   PrintHorizontal(width, botLeftX, botLeftY, 3, true);
 
   PrintWall(15, 30, presetN1, topLeftX + 1, topLeftY + 1);
-  PrintWall(15, 30, presetN1, centerX + 1, centerY +1);
-  PrintWall(15, 30, presetN1, topLeftX + 1, topLeftY + 1 + 16);
-  PrintWall(15, 30, presetN1, centerX + 1, centerY - 15);
+  PrintWall(15, 30, presetN3, centerX + 1, centerY +1);
+  PrintWall(15, 30, presetN4, topLeftX + 1, topLeftY + 1 + 16);
+  PrintWall(15, 30, presetN2, centerX + 1, centerY - 15);
 }
