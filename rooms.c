@@ -46,6 +46,8 @@ void PrintWall(int rows, int columns, char mat[rows][columns], int startX, int s
 	for (int j = 0; j < columns; j++) {
 	    if (mat[i][j] == WALL) {
 		    mvaddch(currentY, currentX + j, WALL);
+		    refresh();
+		    napms(40);
 	    }
 	}
 	currentX = startX;
@@ -92,4 +94,7 @@ void PrintMap(int width, int height) {
   PrintHorizontal(width, botLeftX, botLeftY, 3, true);
 
   PrintWall(15, 30, presetN1, topLeftX + 1, topLeftY + 1);
+  PrintWall(15, 30, presetN1, centerX + 1, centerY +1);
+  PrintWall(15, 30, presetN1, topLeftX + 1, topLeftY + 1 + 16);
+  PrintWall(15, 30, presetN1, centerX + 1, centerY - 15);
 }
