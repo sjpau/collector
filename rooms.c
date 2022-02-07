@@ -1,17 +1,20 @@
 #include "rooms.h"
 #include <ncurses.h>
 
+/*symbol definitions*/
+#define WALL      '#'
+
 /*TODO: allow user to choose specific char symbol*/
 void PrintHorizontal(int width, int stX, int stY, int edge, bool right) {
   if(right) {
     for (int i = 0; i < width + edge; ++i) {
-      mvaddch(stY, stX++, '#');
+      mvaddch(stY, stX++, WALL);
       refresh();
       napms(40);
     }
   } else {
     for (int i = 0; i < width + edge; ++i) {
-      mvaddch(stY, stX--, '#');
+      mvaddch(stY, stX--, WALL);
       refresh();
       napms(40);
     }
@@ -21,13 +24,13 @@ void PrintHorizontal(int width, int stX, int stY, int edge, bool right) {
 void PrintVertical(int height, int stX, int stY, int edge, bool up) {
   if(up) {
     for (int i = 0; i < height + edge; ++i) {
-      mvaddch(stY--, stX, '#');
+      mvaddch(stY--, stX, WALL);
       refresh();
       napms(40);
     }
   } else {
       for (int i = 0; i < height + edge; ++i) {
-      mvaddch(stY++, stX, '#');
+      mvaddch(stY++, stX, WALL);
       refresh();
       napms(40);
    }

@@ -1,7 +1,12 @@
 #include <stdlib.h>
 #include <ncurses.h>
 #include "rooms.h"
-#include "def.h"
+
+#define EMPTY     ' '
+#define MVRIGHT   '3'  
+#define MVLEFT    'E'
+#define MVUP      'M'
+#define MVDOWN    'W'
 
 static int Y;
 static int X;

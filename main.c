@@ -3,6 +3,18 @@
 #include "dial.c"
 #include "rooms.h"
 
+/*keys*/
+#define w         'w'
+#define W         'W'
+#define a         'a' 
+#define A         'A'
+#define s         's'
+#define S         'S'
+#define d         'd'
+#define D         'D'
+#define q         'q'
+#define Q         'Q'
+
 int main(){
 
   initscr();
