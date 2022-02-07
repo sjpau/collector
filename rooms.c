@@ -43,8 +43,8 @@ void PrintWall(char** mat, int rows, int columns, int startX, int startY) {
 
     for (int i = 0; i < rows; i++) {
 	for (int j = 0; j < columns; j++) {
-	    if(mat[i][j] == '#') {
-		    mvaddch(currentY, currentX + j, '#');
+	    if (mat[i][j] == WALL) {
+		    mvaddch(currentY, currentX + j, WALL);
 	    }
 	}
 	currentX = startX;
