@@ -37,6 +37,21 @@ void PrintVertical(int height, int stX, int stY, int edge, bool up) {
   }
 }
 
+void PrintWall(char** mat, int rows, int columns, int startX, int startY) {
+    int currentX = startX;
+    int currentY = startY;
+
+    for (int i = 0; i < rows; i++) {
+	for (int j = 0; j < columns; j++) {
+	    if (mat[i][j] == WALL) {
+		    mvaddch(currentY, currentX + j, WALL);
+	    }
+	}
+	currentX = startX;
+	currentY++;
+    }
+}
+
 void PrintMap(int width, int height) {
   int x;
   int y;
