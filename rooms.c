@@ -1,4 +1,5 @@
 #include "rooms.h"
+#include "presets.h"
 #include <ncurses.h>
 
 /*symbol definitions*/
@@ -37,7 +38,7 @@ void PrintVertical(int height, int stX, int stY, int edge, bool up) {
   }
 }
 
-void PrintWall(char** mat, int rows, int columns, int startX, int startY) {
+void PrintWall(int rows, int columns, char mat[rows][columns], int startX, int startY) {
     int currentX = startX;
     int currentY = startY;
 
@@ -89,4 +90,6 @@ void PrintMap(int width, int height) {
   PrintHorizontal(width, topRightX, topRightY, 3, false);
   PrintVertical(height, topLeftX, topLeftY, 3, false);
   PrintHorizontal(width, botLeftX, botLeftY, 3, true);
+
+  PrintWall(15, 30, presetN1, topLeftX + 1, topLeftY + 1);
 }
