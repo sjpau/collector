@@ -98,6 +98,20 @@ void FreeSpace(int size, int firstD, char** mat[size]) {
     }
 }	
 
+/*Pseudo Random Index Generation*/
+int RandomGeneration(int* banned, int max, int min) { 
+    if(banned[3]) srand(time(0));
+    int result = (rand()%(max - min + 1) + min);
+    for(int i = 0; i < 3; i++) {
+	if(result == banned[i]) {
+	    banned[3] = 0;
+	    result = RandomGeneration(banned, max, min);
+	}
+    }
+    banned[3] = 1;
+    return result; 
+}
+
 void PrintMap(int width, int height) {
   int edge = 3;
   int x;
@@ -151,13 +165,26 @@ void PrintMap(int width, int height) {
   AllocatePresets(size, presets, sqrHeight, sqrWidth, presetN10, 9);
   
   /*Organizing Random Presets Drawing*/
-  /*(Will be added Soon)*/
+  /*Test version*/
+  int index;
+  int min = 0;
+  int max = size - 1;
+  int banned[4] = {-1, -1, -1, 1};
 
-  /*Print presets*/
-  PrintWalls(sqrHeight, sqrWidth, presets[4], topLeftX + 1, topLeftY + 1);
-  PrintWalls(sqrHeight, sqrWidth, presets[1], centerX + 1, centerY +1);
-  PrintWalls(sqrHeight, sqrWidth, presets[9], topLeftX + 1, topLeftY + 1 + 16);
-  PrintWalls(sqrHeight, sqrWidth, presets[5], centerX + 1, centerY - 15);
+  index = RandomGeneration(banned, max, min);
+  banned[0] = index;
+  PrintWalls(sqrHeight, sqrWidth, presets[index], topLeftX + 1, topLeftY + 1);
+
+  index = RandomGeneration(banned, max, min);
+  banned[1] = index;
+  PrintWalls(sqrHeight, sqrWidth, presets[index], centerX + 1, centerY +1);
+
+  index = RandomGeneration(banned, max, min);
+  banned[2] = index;
+  PrintWalls(sqrHeight, sqrWidth, presets[index], topLeftX + 1, topLeftY + 1 + 16);
+
+  index = RandomGeneration(banned, max, min);
+  PrintWalls(sqrHeight, sqrWidth, presets[index], centerX + 1, centerY - 15);
 
   FreeSpace(size, sqrHeight, presets);
 }

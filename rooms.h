@@ -15,4 +15,6 @@ void PrintMap();
 void AllocatePresets(int size, char** mat[size], int firstD, int secondD, char preset[firstD][secondD], int index);
 
 void FreeSpace(int size, int firstD, char** mat[size]);
+
+int RandomGeneration(int* banned, int max, int min);
 #endif
