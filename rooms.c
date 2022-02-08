@@ -12,7 +12,7 @@
 
 /*Prints Horizontal Wall*/
 void PrintHorizontal(int width, int stX, int stY, int edge, bool right) {
-  if(right) {
+  if (right) {
     for (int i = 0; i < width + edge; ++i) {
       mvaddch(stY, stX++, WALL); 
       refresh();
@@ -29,7 +29,7 @@ void PrintHorizontal(int width, int stX, int stY, int edge, bool right) {
 
 /*Prints Vertical Wall*/
 void PrintVertical(int height, int stX, int stY, int edge, bool up) {
-  if(up) {
+  if (up) {
     for (int i = 0; i < height + edge; ++i) {
       mvaddch(stY--, stX, WALL);
       refresh();
@@ -100,10 +100,10 @@ void FreeSpace(int size, int firstD, char** mat[size]) {
 
 /*Pseudo Random Index Generation*/
 int RandomGeneration(int* banned, int max, int min) { 
-    if(banned[3]) srand(time(0));
+    if (banned[3]) srand(time(0));
     int result = (rand()%(max - min + 1) + min);
-    for(int i = 0; i < 3; i++) {
-	if(result == banned[i]) {
+    for (int i = 0; i < 3; i++) {
+	if (result == banned[i]) {
 	    banned[3] = 0;
 	    result = RandomGeneration(banned, max, min);
 	}
