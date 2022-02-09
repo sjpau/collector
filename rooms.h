@@ -12,9 +12,9 @@ void PrintWalls(int rows, int colunms, char** mat, int startX, int startY);
 
 void PrintMap();
 
-void AllocatePresets(int size, char** mat[size], int firstD, int secondD, char preset[firstD][secondD], int index);
+void AllocatePresets(int numberOfPresets, char** mat[numberOfPresets], int rowsInPreset, int columnsInPreset, char currentPreset[rowsInPreset][columnsInPreset], int presetIndex);
 
-void FreeSpace(int size, int firstD, char** mat[size]);
+void FreeSpace(int numberOfPresets, int rowsInPreset, char** mat[numberOfPresets]);
 
 int RandomGeneration(int* banned, int max, int min);
 #endif
