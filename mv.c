@@ -8,8 +8,22 @@
 #define MVUP      'M'
 #define MVDOWN    'W'
 
+/*keys*/
+#define w         'w'
+#define W         'W'
+#define a         'a' 
+#define A         'A'
+#define s         's'
+#define S         'S'
+#define d         'd'
+#define D         'D'
+#define q         'q'
+#define Q         'Q'
+
+
 static int Y;
 static int X;
+static int input; 
 
 int CellIsEmpty(int y, int x){
   int checkCell; 
@@ -49,3 +63,24 @@ void HeroMoveDown(){
 }
 
 
+void allowCharacterMovement(){
+    input = getch();
+    switch (input){
+      case w:
+      case W:
+        HeroMoveUp();
+        break; 
+      case s:
+      case S:
+        HeroMoveDown();
+        break;
+      case d:
+      case D:
+        HeroMoveRight();
+        break;
+      case a:
+      case A:
+        HeroMoveLeft();
+        break;
+    }
+}
