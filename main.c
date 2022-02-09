@@ -12,7 +12,6 @@ int main(){
   noecho(); 
   curs_set(0);
 /*screen initialized*/
- /*  PrintSentence(sen); sentence is put for printing*/
   PrintMap(60, 30);
 /*main game loop*/
   do {

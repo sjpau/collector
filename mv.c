@@ -32,7 +32,6 @@ int CellIsEmpty(int y, int x){
 }
 
 
-/*character movement*/
 void HeroMoveLeft(){
   if (CellIsEmpty(Y, X - 1)) {
     mvaddch(Y, X, EMPTY);

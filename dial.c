@@ -21,7 +21,7 @@ int CalcSentenceLength(char senToCalcLength[]){
 }
 
 void PrintSentence(char senToPrint[]){
-  CalcSentenceLength(sen); /*here sentence is put for further operation*/
+  CalcSentenceLength(sen); 
   move(1, 0);
     for (int i = 0; i < senLength; i++){
       addch(senToPrint[i]);
