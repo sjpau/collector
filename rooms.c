@@ -6,20 +6,20 @@
 
 #define WALL      '#'
 
-#define TIME_DRAWING_INTERVAL      15
+#define PRINT_DELAY_MS      15
 
 void PrintHorizontal(WINDOW* win, int width, int stX, int stY, int edge, bool right) {
   if (right) {
     for (int i = 0; i < width + edge; ++i) {
       mvwaddch(win, stY, stX++, WALL);
       refresh();
-      napms(TIME_DRAWING_INTERVAL);
+      napms(PRINT_DELAY_MS);
     }
   } else {
     for (int i = 0; i < width + edge; ++i) {
       mvwaddch(win, stY, stX--, WALL);
       refresh();
-      napms(TIME_DRAWING_INTERVAL);
+      napms(PRINT_DELAY_MS);
     }
   } 
 }
@@ -29,13 +29,13 @@ void PrintVertical(WINDOW* win, int height, int stX, int stY, int edge, bool up)
     for (int i = 0; i < height + edge; ++i) {
       mvwaddch(win, stY--, stX, WALL);
       refresh();
-      napms(TIME_DRAWING_INTERVAL);
+      napms(PRINT_DELAY_MS);
     }
   } else {
       for (int i = 0; i < height + edge; ++i) {
       mvwaddch(win, stY++, stX, WALL);
       refresh();
-      napms(TIME_DRAWING_INTERVAL);
+      napms(PRINT_DELAY_MS);
     }
   }
 }
@@ -58,7 +58,7 @@ void PrintWalls(WINDOW* win, int rows, int columns, char** mat, int startX, int 
 	    if (mat[i][j] == WALL) {
 		    mvwaddch(win, currentY, currentX + j, WALL);
 		    refresh();
-		    napms(TIME_DRAWING_INTERVAL);
+		    napms(PRINT_DELAY_MS);
 	    }
 	}
 	currentX = startX;
