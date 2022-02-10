@@ -12,7 +12,7 @@ int main(){
   noecho(); 
   curs_set(0);
 /*screen initialized*/
-  PrintMap(60, 30);
+  PrintMap(stdscr, 60, 30);
 /*main game loop*/
   do {
 	allowCharacterMovement();
