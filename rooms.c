@@ -93,11 +93,11 @@ int RandomGeneration(int* banned, int max, int min) {
     int result = (rand()%(max - min + 1) + min);
     for (int i = 0; i < 3; i++) {
 	if (result == banned[i]) {
-	    banned[3] = 0;
+	    banned[3] = false;
 	    result = RandomGeneration(banned, max, min);
 	}
     }
-    banned[3] = 1;
+    banned[3] = true;
     return result; 
 }
 
@@ -146,7 +146,7 @@ void PrintMap(WINDOW* win, int width, int height) {
   int presetIndex;
   int min = 0;
   int max = numberOfPresets - 1;
-  int banned[4] = {-1, -1, -1, 1};
+  int banned[4] = {-1, -1, -1, true};
 
   presetIndex = RandomGeneration(banned, max, min);
   banned[0] = presetIndex;
