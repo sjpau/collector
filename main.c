@@ -2,7 +2,7 @@
 #include "mv.c"
 #include "dial.c"
 #include "rooms.h"
-
+#include "mwin.c"
 
 int main(){
 
@@ -12,14 +12,15 @@ int main(){
   noecho(); 
   curs_set(0);
 /*screen initialized*/
-  PrintMap(stdscr, 60, 30);
+	//	PrintMap(stdscr, 60, 30);
+	mainMenuGetAttrs();
+	refresh();
+	keypad(mainMenu, TRUE);
+	renderWindow(mainMenu, highlight);
+	setMenuWindowUp(mainMenu);	
 /*main game loop*/
-  do {
-	allowCharacterMovement();
- } while ((input != q) && (input != Q));
-
+	setCharacterMovementUp();
 	/*screen closed*/
-  getch();
   refresh();
   endwin();
 
