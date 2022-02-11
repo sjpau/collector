@@ -4,9 +4,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define WALL      '#'
-
-#define PRINT_DELAY_MS      15
 
 void PrintHorizontal(WINDOW* win, int width, int stX, int stY, int edge, bool right) {
   if (right) {
