@@ -83,3 +83,9 @@ void allowCharacterMovement(){
         break;
     }
 }
+
+void setCharacterMovementUp(){
+  do {
+	allowCharacterMovement();
+ } while ((input != q) && (input != Q));
+}
