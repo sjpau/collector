@@ -8,25 +8,25 @@
 WINDOW *mainMenu;
 WINDOW *dialogWindow;
 
-int winInitPosX = 0; 
-int winInitPosY = 0;
-int highlight = 1;
-int currentChoice = 0; 
+static int winInitPosX = 0; 
+static int winInitPosY = 0;
+static int highlight = 1;
+static int currentChoice = 0; 
 int menuInput;
 
-char *mainMenuChoices[] = {
+static char *mainMenuChoices[] = {
 	"Start gaym",
 	"Credits",
 	"Fuck out",
 };
 
-char *dialogWindowChoices[] = {
+static char *dialogWindowChoices[] = {
 	"I'm in (Take the gig)",
 	"Fuck off (Decline the gig)",
 }; 
 
-int numOfDialogWindowChoices = sizeof(dialogWindowChoices) / sizeof(char *);
-int numOfMainMenuChoices = sizeof(mainMenuChoices) / sizeof(char *);
+static int numOfDialogWindowChoices = sizeof(dialogWindowChoices) / sizeof(char *);
+static int numOfMainMenuChoices = sizeof(mainMenuChoices) / sizeof(char *);
 
 void renderWindow(WINDOW *win, int highlight){
 	int x, y, z; 
@@ -77,6 +77,7 @@ void setMenuWindowUp(WINDOW *win){
 						highlight = numOfMainMenuChoices;
 					else
 						--highlight;
+					break;
 				case 's':
 				case 'S':
 				case KEY_DOWN:
