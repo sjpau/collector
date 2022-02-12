@@ -1,6 +1,8 @@
 #include <ncurses.h>
 #include <stdlib.h>
 #include "rooms.h"
+#include "mwin.h"
+#include "mv.h"
 
 #define MM_WIDTH  20
 #define MM_HEIGHT 10
@@ -16,6 +18,7 @@ int menuInput;
 
 static char *mainMenuChoices[] = {
 	"Start gaym",
+	"Key bindings",
 	"Credits",
 	"Fuck out",
 };
@@ -64,22 +67,21 @@ void renderWindow(WINDOW *win, int highlight){
 	}
 }
 
-/*TODO:include movement header and then change input chars*/
 void setMenuWindowUp(WINDOW *win){
 	if (win == mainMenu){
 		while(1){
 			menuInput = wgetch(mainMenu);
 			switch(menuInput){
-				case 'w':
-				case 'W':
+				case w:
+				case W:
 				case KEY_UP:
 					if (highlight == 1)
 						highlight = numOfMainMenuChoices;
 					else
 						--highlight;
 					break;
-				case 's':
-				case 'S':
+				case s:
+				case S:
 				case KEY_DOWN:
 					if (highlight == numOfMainMenuChoices)
 						highlight = 1;
@@ -94,7 +96,7 @@ void setMenuWindowUp(WINDOW *win){
 					break;
 			}
 			renderWindow(mainMenu, highlight);
-			if (currentChoice == 3){
+			if (currentChoice == 4){
 				break;
 			}
 		}
