@@ -3,9 +3,10 @@
 #include <ncurses.h>
 
 void renderWindow(WINDOW *win, int highlight);
-
 void setMenuWindowUp(WINDOW *win);
-
 void mainMenuGetAttrs();
+void gameplayWindowGetAttrs();
+void allowMainMenuChoices();
+void InitMainMenu();
 
 #endif

@@ -1,8 +1,8 @@
 #include <ncurses.h>
-#include "mv.c"
+#include "mv.h"
 #include "dial.c"
 #include "rooms.h"
-#include "mwin.c"
+#include "mwin.h"
 
 int main(){
 
@@ -15,9 +15,7 @@ int main(){
 	//	PrintMap(stdscr, 60, 30);
 	mainMenuGetAttrs();
 	refresh();
-	keypad(mainMenu, TRUE);
-	renderWindow(mainMenu, highlight);
-	setMenuWindowUp(mainMenu);	
+	InitMainMenu();
 /*main game loop*/
 //	setCharacterMovementUp();
 	/*screen closed*/
