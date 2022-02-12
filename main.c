@@ -19,7 +19,7 @@ int main(){
 	renderWindow(mainMenu, highlight);
 	setMenuWindowUp(mainMenu);	
 /*main game loop*/
-	setCharacterMovementUp();
+//	setCharacterMovementUp();
 	/*screen closed*/
   refresh();
   endwin();
