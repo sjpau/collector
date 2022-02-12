@@ -9,13 +9,13 @@ void PrintHorizontal(WINDOW* win, int width, int stX, int stY, int edge, bool ri
   if (right) {
     for (int i = 0; i < width + edge; ++i) {
       mvwaddch(win, stY, stX++, WALL);
-      refresh();
+      wrefresh(win);
       napms(PRINT_DELAY_MS);
     }
   } else {
     for (int i = 0; i < width + edge; ++i) {
       mvwaddch(win, stY, stX--, WALL);
-      refresh();
+      wrefresh(win);
       napms(PRINT_DELAY_MS);
     }
   } 
@@ -25,13 +25,13 @@ void PrintVertical(WINDOW* win, int height, int stX, int stY, int edge, bool up)
   if (up) {
     for (int i = 0; i < height + edge; ++i) {
       mvwaddch(win, stY--, stX, WALL);
-      refresh();
+      wrefresh(win);
       napms(PRINT_DELAY_MS);
     }
   } else {
       for (int i = 0; i < height + edge; ++i) {
       mvwaddch(win, stY++, stX, WALL);
-      refresh();
+      wrefresh(win);
       napms(PRINT_DELAY_MS);
     }
   }
@@ -54,7 +54,7 @@ void PrintWalls(WINDOW* win, int rows, int columns, char** mat, int startX, int 
 	for (int j = 0; j < columns; j++) {
 	    if (mat[i][j] == WALL) {
 		    mvwaddch(win, currentY, currentX + j, WALL);
-		    refresh();
+		    wrefresh(win);
 		    napms(PRINT_DELAY_MS);
 	    }
 	}
