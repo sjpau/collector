@@ -47,6 +47,7 @@ void gameplayWindowGetAttrs(){
 	winInitPosX = (getmaxx(stdscr) - GW_WIDTH) / 2;
 	winInitPosY = (getmaxy(stdscr) - GW_HEIGHT) / 2;
 	gameplayWindow = newwin(GW_HEIGHT, GW_WIDTH, winInitPosY, winInitPosX);
+	box(gameplayWindow, 0, 0);
 }
 void renderWindow(WINDOW *win, int highlight){
 	int x, y, z; 
@@ -96,8 +97,14 @@ void allowMainMenuChoices(){
 			/*TODO: here map prints into new window and the game starts*/
 						printf("%d", currentChoice);
 			exitMainMenu = true;
+			/*SANUA MADE CHANGES*/
+			wborder(mainMenu,  ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+		        wrefresh(mainMenu);
+			clear();
+			delwin(mainMenu);	
+			//refresh();
 			gameplayWindowGetAttrs();
-			refresh();
+			/*SANYA MADE CHANGES*/
 			setMenuWindowUp(gameplayWindow);
 			PrintMap(gameplayWindow, 60, 30);
 			setCharacterMovementUp();
