@@ -2,11 +2,9 @@
 #define WINDOWS_HEADER
 #include <ncurses.h>
 
-void renderWindow(WINDOW *win, int highlight);
-void setMenuWindowUp(WINDOW *win);
-void mainMenuGetAttrs();
-void gameplayWindowGetAttrs();
-void allowMainMenuChoices();
-void InitMainMenu();
+void RenderMainMenuChoices(WINDOW *win);
+void SetUpMainMenu(WINDOW *win);
+void InitMainMenu(WINDOW *win);
+void MainMenuGetAttrs(WINDOW* win, int y, int x);
 
 #endif

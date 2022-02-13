@@ -6,17 +6,18 @@
 
 int main(int argc, char *argv[]){
 
-  initscr();
+WINDOW *mainMenu;
+WINDOW *dialogWindow;
+
+	initscr();
   raw();
   cbreak();
   noecho(); 
   refresh();
   curs_set(0);
 /*screen initialized*/
-	mainMenuGetAttrs();
-	refresh();
-	InitMainMenu();
-	/*screen closed*/
+	InitMainMenu(mainMenu);
+/*screen closed*/
 
   endwin();
 

@@ -9,25 +9,14 @@
 #define GW_WIDTH 65
 #define GW_HEIGHT 35
 
-WINDOW *mainMenu;
-WINDOW *dialogWindow;
-WINDOW *gameplayWindow;
-
-
-
-static int winInitPosX = 0; 
-static int winInitPosY = 0;
-static int currentChoice = 0; 
-static bool exitMainMenu = false;
 static int highlight = 1;
-int menuInput;
 
 static char *mainMenuChoices[] = {
-	"Start gaym",
-	"Key bindings",
-	"Credits",
-	"Fuck out",
-};
+		"Start gaym",
+		"Key bindings",
+		"Credits",
+		"Fuck out",
+	};
 
 static char *dialogWindowChoices[] = {
 	"I'm in (Take the gig)",
@@ -37,93 +26,48 @@ static char *dialogWindowChoices[] = {
 static int numOfDialogWindowChoices = sizeof(dialogWindowChoices) / sizeof(char *);
 static int numOfMainMenuChoices = sizeof(mainMenuChoices) / sizeof(char *);
 
-void mainMenuGetAttrs(){
-	winInitPosX = (getmaxx(stdscr) - MM_WIDTH) / 2; 
-	winInitPosY = (getmaxy(stdscr) - MM_HEIGHT) / 2;
-	mainMenu = newwin(MM_HEIGHT, MM_WIDTH, winInitPosY, winInitPosX);
+void MainMenuGetAttrs(WINDOW* win, int y, int x){
+	x = (getmaxx(stdscr) - MM_WIDTH) / 2; 
+	y = (getmaxy(stdscr) - MM_HEIGHT) / 2;
+	win = newwin(MM_HEIGHT, MM_WIDTH, y, x);
 }
 
-void gameplayWindowGetAttrs(){
-	winInitPosX = (getmaxx(stdscr) - GW_WIDTH) / 2;
-	winInitPosY = (getmaxy(stdscr) - GW_HEIGHT) / 2;
-	gameplayWindow = newwin(GW_HEIGHT, GW_WIDTH, winInitPosY, winInitPosX);
-	box(gameplayWindow, 0, 0);
-}
-void renderWindow(WINDOW *win, int highlight){
-	int x, y, z; 
+void RenderMainMenuChoices(WINDOW *win){
 
-
-	box(win, 0, 0);
-	if (win == mainMenu){
+	
+	int x, y, z;
 
 	x = 5;
-	y = 3;
-		for (z = 0; z < numOfMainMenuChoices; ++z){
-			if (highlight == z + 1){
-				wattron(win, A_REVERSE);
-				mvwprintw(win, y, x, "%s", mainMenuChoices[z]);
-				wattroff(win, A_REVERSE);
-			}
-			else
-				mvwprintw(win, y, x, "%s", mainMenuChoices[z]);
-			++y;
+  y = 3;
+	
+	for (z = 0; z < numOfMainMenuChoices; ++z){
+		if (highlight == z + 1){
+			wattron(win, A_REVERSE);
+			mvwprintw(win, y, x, "%s", mainMenuChoices[z]);
+			wattroff(win, A_REVERSE);
 		}
-		wrefresh(win);
-	}
-	else if (win == dialogWindow){
-		/*here will be inserted the dialog system*/
-	x = 5;
-	y = 3;
-		for (z = 0; z < numOfDialogWindowChoices; ++z){
-			if (highlight == z + 1){
-				wattron(win, A_REVERSE);
-				mvwprintw(win, y, x, "%s", dialogWindowChoices[z]);
-				wattroff(win, A_REVERSE);
-			}
-			else
-				mvwprintw(win, y, x, "%s", dialogWindowChoices[z]);
-			++y;
-		}
-	}
-	else if (win == gameplayWindow){
-		x = 2;
-		y = 2;
+		else
+			mvwprintw(win, y, x, "%s", mainMenuChoices[z]);
+		++y;
+
 	}
 }
 
-void allowMainMenuChoices(){
-	switch(currentChoice){
-		case 1:
-			/*TODO: here map prints into new window and the game starts*/
-						printf("%d", currentChoice);
-			int Y = GetCenterY(stdscr);
-			int X = GetCenterX(stdscr);
-			exitMainMenu = true;
-			wborder(mainMenu,  ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
-		        wrefresh(mainMenu);
-			clear();
-			delwin(mainMenu);	
-			PrintMap(stdscr, 60, 30);
-			SetWindowCharacterMovementUp(stdscr, Y, X);
-			break;
-		case 2:
-			/*TODO: loads window with explained default keybindings*/
-						printf("%d", currentChoice);
-			break;
-		case 3:
-			/*TODO: loads window with credits*/
-						printf("%d", currentChoice);
-			break;
-		case 4:
-			exitMainMenu = true;
-			break;
-	}
-}
+void SetUpMainMenu(WINDOW *win){
 
-void setMenuWindowUp(WINDOW *win){
-	if (win == mainMenu){
-		while (1){
-			menuInput = wgetch(mainMenu);
+	MainMenuGetAttrs(win, 0, 0);
+
+	int menuInput; 
+
+  bool exitMainMenu = false;
+	
+	int currentChoice = 0;
+	
+	int Y = GetCenterY(stdscr);
+	int X = GetCenterX(stdscr);
+	
+	while (1){
+	    menuInput = wgetch(win);
 			switch (menuInput){
 				case w:
 				case W:
@@ -143,25 +87,46 @@ void setMenuWindowUp(WINDOW *win){
 					break;
 				case 10:
 					currentChoice = highlight;
-					break;
+					switch(currentChoice){
+						case 1:
+						/*TODO: here map prints into new window and the game starts*/
+							exitMainMenu = true;
+		  				wrefresh(win);
+							clear();
+							delwin(win);	
+							PrintMap(stdscr, 60, 30);
+							SetWindowCharacterMovementUp(stdscr, Y, X);
+							break;
+						case 2:
+						/*TODO: loads window with explained default keybindings*/
+							printf("%d", currentChoice);
+							break;
+						case 3:
+						/*TODO: loads window with credits*/
+							printf("%d", currentChoice);
+							break;
+						case 4:
+							exitMainMenu = true;
+							break;
+					}
 				default:
 					refresh();
 					break;
 			}
-			renderWindow(mainMenu, highlight);
-		  allowMainMenuChoices();
+			
+			RenderMainMenuChoices(win);
+		
 		if (exitMainMenu == true){
 			break;
 			}	
 		}
-	}
-}
+}	
 
-void InitMainMenu(){
+void InitMainMenu(WINDOW *win){
 
-	keypad(mainMenu, TRUE);
-	renderWindow(mainMenu, highlight);
-	setMenuWindowUp(mainMenu);	
+	keypad(win, TRUE);
+	RenderMainMenuChoices(win);
+	SetUpMainMenu(win);	
 
 }
 
