@@ -4,10 +4,6 @@
 #include "mwin.h"
 #include "mv.h"
 
-#define MM_WIDTH  20
-#define MM_HEIGHT 10
-#define GW_WIDTH 65
-#define GW_HEIGHT 35
 
 static int highlight = 1;
 
@@ -26,11 +22,6 @@ static char *dialogWindowChoices[] = {
 static int numOfDialogWindowChoices = sizeof(dialogWindowChoices) / sizeof(char *);
 static int numOfMainMenuChoices = sizeof(mainMenuChoices) / sizeof(char *);
 
-void MainMenuGetAttrs(WINDOW* win, int y, int x){
-	x = (getmaxx(stdscr) - MM_WIDTH) / 2; 
-	y = (getmaxy(stdscr) - MM_HEIGHT) / 2;
-	win = newwin(MM_HEIGHT, MM_WIDTH, y, x);
-}
 
 void RenderMainMenuChoices(WINDOW *win){
 
@@ -40,6 +31,8 @@ void RenderMainMenuChoices(WINDOW *win){
 	x = 5;
   y = 3;
 	
+	box(win, 0, 0);
+
 	for (z = 0; z < numOfMainMenuChoices; ++z){
 		if (highlight == z + 1){
 			wattron(win, A_REVERSE);
@@ -55,7 +48,6 @@ void RenderMainMenuChoices(WINDOW *win){
 
 void SetUpMainMenu(WINDOW *win){
 
-	MainMenuGetAttrs(win, 0, 0);
 
 	int menuInput; 
 
