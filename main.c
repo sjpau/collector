@@ -13,8 +13,8 @@ WINDOW *dialogWindow;
   raw();
   cbreak();
   noecho(); 
-  refresh();
   curs_set(0);
+  refresh();
 /*screen initialized*/
 	InitMainMenu(mainMenu);
 /*screen closed*/
