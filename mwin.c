@@ -96,18 +96,15 @@ void allowMainMenuChoices(){
 		case 1:
 			/*TODO: here map prints into new window and the game starts*/
 						printf("%d", currentChoice);
+			int Y = GetCenterY(stdscr);
+			int X = GetCenterX(stdscr);
 			exitMainMenu = true;
-			/*SANUA MADE CHANGES*/
 			wborder(mainMenu,  ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
 		        wrefresh(mainMenu);
 			clear();
 			delwin(mainMenu);	
-			//refresh();
-			gameplayWindowGetAttrs();
-			/*SANYA MADE CHANGES*/
-			setMenuWindowUp(gameplayWindow);
-			PrintMap(gameplayWindow, 60, 30);
-			SetWindowCharacterMovementUp(gameplayWindow);
+			PrintMap(stdscr, 60, 30);
+			SetWindowCharacterMovementUp(stdscr, Y, X);
 			break;
 		case 2:
 			/*TODO: loads window with explained default keybindings*/
