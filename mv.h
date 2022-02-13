@@ -20,12 +20,12 @@
 #define q         'q'
 #define Q         'Q'
 
-int CellIsEmpty(int y, int x);
-void HeroMoveLeft();
-void HeroMoveRight();
-void HeroMoveUp();
-void HeroMoveDown();
-void allowCharacterMovement();
-void setCharacterMovementUp();
+int WCellIsEmpty(WINDOW *win, int y, int x);
+void WHeroMoveLeft(WINDOW *win);
+void WHeroMoveRight(WINDOW *win);
+void WHeroMoveUp(WINDOW *win);
+void WHeroMoveDown(WINDOW *win);
+void AllowWindowCharacterMovement(WINDOW *win);
+void SetWindowCharacterMovementUp(WINDOW *win);
 
 #endif

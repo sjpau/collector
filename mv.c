@@ -7,67 +7,69 @@ static int Y;
 static int X;
 static int movementInput; 
 
-int CellIsEmpty(int y, int x){
+int WCellIsEmpty(WINDOW *win, int y, int x){
   int checkCell; 
-  checkCell = mvinch(y, x);
+  checkCell = mvwinch(win, y, x);
   return ((checkCell == EMPTY));
 }
 
 
-void HeroMoveLeft(){
-  if (CellIsEmpty(Y, X - 1)) {
-    mvaddch(Y, X, EMPTY);
+void WHeroMoveLeft(WINDOW *win){
+  if (WCellIsEmpty(win, Y, X - 1)) {
+    mvwaddch(win, Y, X, EMPTY);
     X -= 1;
-    mvaddch(Y, X, MVLEFT);
+    mvwaddch(win, Y, X, MVLEFT);
   }
 }
-void HeroMoveRight(){
-  if (CellIsEmpty(Y, X + 1)){
-    mvaddch(Y, X, EMPTY);
+void WHeroMoveRight(WINDOW *win){
+  if (WCellIsEmpty(win, Y, X + 1)){
+    mvwaddch(win, Y, X, EMPTY);
     X += 1;
-    mvaddch(Y, X, MVRIGHT);
+    mvwaddch(win, Y, X, MVRIGHT);
   }
 }
-void HeroMoveUp(){
-  if (CellIsEmpty(Y - 1, X)){
-    mvaddch(Y, X, EMPTY);
+void WHeroMoveUp(WINDOW *win){
+  if (WCellIsEmpty(win, Y - 1, X)){
+    mvwaddch(win, Y, X, EMPTY);
     Y -= 1;
-    mvaddch(Y, X, MVUP);
+    mvwaddch(win, Y, X, MVUP);
   }
 } 
-void HeroMoveDown(){
-  if (CellIsEmpty(Y + 1, X)){
-    mvaddch(Y, X, EMPTY);
+void WHeroMoveDown(WINDOW *win){
+  if (WCellIsEmpty(win, Y + 1, X)){
+    mvwaddch(win, Y, X, EMPTY);
     Y += 1;
-    mvaddch(Y, X, MVDOWN);
+    mvwaddch(win, Y, X, MVDOWN);
   }
 }
 
 
-void allowCharacterMovement(){
-    movementInput = getch();
+void AllowWindowCharacterMovement(WINDOW *win){
+    movementInput = wgetch(win);
+		mvwaddch(win, 13, 3, MVRIGHT);
+		getyx(win,Y,X);
     switch (movementInput){
       case w:
       case W:
-        HeroMoveUp();
+        WHeroMoveUp(win);
         break; 
       case s:
       case S:
-        HeroMoveDown();
+        WHeroMoveDown(win);
         break;
       case d:
       case D:
-        HeroMoveRight();
+        WHeroMoveRight(win);
         break;
       case a:
       case A:
-        HeroMoveLeft();
+        WHeroMoveLeft(win);
         break;
     }
 }
 
-void setCharacterMovementUp(){
+void SetWindowCharacterMovementUp(WINDOW *win){
   do {
-	allowCharacterMovement();
+	AllowWindowCharacterMovement(win);
  } while ((movementInput != q) && (movementInput != Q));
 }

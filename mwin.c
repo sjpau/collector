@@ -107,7 +107,7 @@ void allowMainMenuChoices(){
 			/*SANYA MADE CHANGES*/
 			setMenuWindowUp(gameplayWindow);
 			PrintMap(gameplayWindow, 60, 30);
-			setCharacterMovementUp();
+			SetWindowCharacterMovementUp(gameplayWindow);
 			break;
 		case 2:
 			/*TODO: loads window with explained default keybindings*/
