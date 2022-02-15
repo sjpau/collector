@@ -49,10 +49,8 @@ void RenderMainMenuChoices(WINDOW *win){
 void SetUpMainMenu(WINDOW *win){
 
 
-	int menuInput; 
-
+	int menuInput;
   bool exitMainMenu = false;
-	
 	int currentChoice = 0;
 	
 	int Y = GetCenterY(stdscr);

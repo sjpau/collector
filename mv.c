@@ -4,7 +4,7 @@
 #include "mv.h"
 #include "rooms.h"
 
-static int movementInput; 
+int movementInput;
 
 int WCellIsEmpty(WINDOW *win, int y, int x){
   int checkCell; 
@@ -44,24 +44,29 @@ void WHeroMoveDown(WINDOW *win, int Y, int X){
 
 
 void AllowWindowCharacterMovement(WINDOW *win, int Y, int X){
-    movementInput = wgetch(win);
+
+		movementInput = wgetch(win);
 		wrefresh(win);
     switch (movementInput){
       case w:
       case W:
         WHeroMoveUp(win, Y, X);
+				printw("%d", "%d", Y, X);
         break; 
       case s:
       case S:
         WHeroMoveDown(win, Y, X);
+				printw("%d", "%d", Y, X);
         break;
       case d:
       case D:
         WHeroMoveRight(win, Y, X);
+				printw("%d", "%d", Y, X);
         break;
       case a:
       case A:
         WHeroMoveLeft(win, Y, X);
+				printw("%d", "%d", Y, X);
         break;
     }
 }
