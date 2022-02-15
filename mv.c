@@ -13,37 +13,41 @@ int WCellIsEmpty(WINDOW *win, int y, int x){
 }
 
 
-void WHeroMoveLeft(WINDOW *win, int Y, int X){
-  if (WCellIsEmpty(win, Y, X - 1)) {
-    mvwaddch(win, Y, X, EMPTY);
-    X -= 1;
-    mvwaddch(win, Y, X, MVLEFT);
+void WHeroMoveLeft(WINDOW *win, int* Y, int* X){
+  int x = *X - 1;
+  if (WCellIsEmpty(win, *Y, x)) {
+    mvwaddch(win, *Y, *X, EMPTY);
+    (*X)--;
+    mvwaddch(win, *Y, *X, MVLEFT);
   }
 }
-void WHeroMoveRight(WINDOW *win, int Y, int X){
-  if (WCellIsEmpty(win, Y, X + 1)){
-    mvwaddch(win, Y, X, EMPTY);
-    X += 1;
-    mvwaddch(win, Y, X, MVRIGHT);
+void WHeroMoveRight(WINDOW *win, int* Y, int* X){
+  int x = *X + 1;
+  if (WCellIsEmpty(win, *Y, x)){
+    mvwaddch(win, *Y, *X, EMPTY);
+    (*X)++;
+    mvwaddch(win, *Y, *X, MVRIGHT);
   }
 }
-void WHeroMoveUp(WINDOW *win, int Y, int X){
-  if (WCellIsEmpty(win, Y - 1, X)){
-    mvwaddch(win, Y, X, EMPTY);
-    Y -= 1;
-    mvwaddch(win, Y, X, MVUP);
+void WHeroMoveUp(WINDOW *win, int* Y, int* X){
+  int y = *Y - 1;
+  if (WCellIsEmpty(win, y, *X)){
+    mvwaddch(win, *Y, *X, EMPTY);
+    (*Y)--;
+    mvwaddch(win, *Y, *X, MVUP);
   }
 } 
-void WHeroMoveDown(WINDOW *win, int Y, int X){
-  if (WCellIsEmpty(win, Y + 1, X)){
-    mvwaddch(win, Y, X, EMPTY);
-    Y += 1;
-    mvwaddch(win, Y, X, MVDOWN);
+void WHeroMoveDown(WINDOW *win, int* Y, int* X){
+  int y = *Y + 1;
+  if (WCellIsEmpty(win, y, *X)){
+    mvwaddch(win, *Y, *X, EMPTY);
+    (*Y)++;
+    mvwaddch(win, *Y, *X, MVDOWN);
   }
 }
 
 
-void AllowWindowCharacterMovement(WINDOW *win, int Y, int X){
+void AllowWindowCharacterMovement(WINDOW *win, int* Y, int* X){
 
 		movementInput = wgetch(win);
 		wrefresh(win);
@@ -51,27 +55,23 @@ void AllowWindowCharacterMovement(WINDOW *win, int Y, int X){
       case w:
       case W:
         WHeroMoveUp(win, Y, X);
-				printw("%d", "%d", Y, X);
         break; 
       case s:
       case S:
         WHeroMoveDown(win, Y, X);
-				printw("%d", "%d", Y, X);
         break;
       case d:
       case D:
         WHeroMoveRight(win, Y, X);
-				printw("%d", "%d", Y, X);
         break;
       case a:
       case A:
         WHeroMoveLeft(win, Y, X);
-				printw("%d", "%d", Y, X);
         break;
     }
 }
 
-void SetWindowCharacterMovementUp(WINDOW *win, int Y, int X){
+void SetWindowCharacterMovementUp(WINDOW *win, int* Y, int* X){
   do {
 	AllowWindowCharacterMovement(win, Y, X);
  } while ((movementInput != q) && (movementInput != Q));
