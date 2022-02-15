@@ -21,11 +21,11 @@
 #define Q         'Q'
 
 int WCellIsEmpty(WINDOW *win, int y, int x);
-void WHeroMoveLeft(WINDOW *win, int Y, int X);
-void WHeroMoveRight(WINDOW *win, int Y, int X);
-void WHeroMoveUp(WINDOW *win, int Y, int X);
-void WHeroMoveDown(WINDOW *win, int Y, int X);
-void AllowWindowCharacterMovement(WINDOW *win, int Y, int X);
-void SetWindowCharacterMovementUp(WINDOW *win, int Y, int X);
+void WHeroMoveLeft(WINDOW *win, int *Y, int *X);
+void WHeroMoveRight(WINDOW *win, int *Y, int *X);
+void WHeroMoveUp(WINDOW *win, int *Y, int *X);
+void WHeroMoveDown(WINDOW *win, int *Y, int *X);
+void AllowWindowCharacterMovement(WINDOW *win, int *Y, int *X);
+void StartMainGameLoop(WINDOW *win, int *Y, int *X);
 
 #endif

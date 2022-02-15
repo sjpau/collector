@@ -71,7 +71,7 @@ void AllowWindowCharacterMovement(WINDOW *win, int* Y, int* X){
     }
 }
 
-void SetWindowCharacterMovementUp(WINDOW *win, int* Y, int* X){
+void StartMainGameLoop(WINDOW *win, int* Y, int* X){
   do {
 	AllowWindowCharacterMovement(win, Y, X);
  } while ((movementInput != q) && (movementInput != Q));

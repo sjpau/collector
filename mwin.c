@@ -85,7 +85,7 @@ void SetUpMainMenu(WINDOW *win){
 							clear();
 							delwin(win);	
 							PrintMap(stdscr, 60, 30);
-							SetWindowCharacterMovementUp(stdscr, Y, X);
+							StartMainGameLoop(stdscr, &Y, &X);
 							break;
 						case 2:
 						/*TODO: loads window with explained default keybindings*/
