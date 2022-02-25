@@ -15,7 +15,8 @@ WINDOW *dialogWindow;
   raw();
   cbreak();
   noecho(); 
-  curs_set(0);
+	keypad(stdscr, TRUE);	
+	curs_set(0);
   refresh();
 /*screen initialized*/
 	
@@ -24,6 +25,7 @@ WINDOW *dialogWindow;
 	mainMenu = newwin(MM_HEIGHT, MM_WIDTH, y, x);
 	
 	InitMainMenu(mainMenu);
+		
 /*screen closed*/
 
   endwin();

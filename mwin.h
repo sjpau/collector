@@ -10,5 +10,6 @@
 void RenderMainMenuChoices(WINDOW *win);
 void SetUpMainMenu(WINDOW *win);
 void InitMainMenu(WINDOW *win);
+void InitMainMenuRecheck(WINDOW *win);
 
 #endif
