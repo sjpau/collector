@@ -8,8 +8,8 @@
 #define GW_HEIGHT 35
 
 void RenderMainMenuChoices(WINDOW *win);
-void SetUpMainMenu(WINDOW *win);
-void InitMainMenu(WINDOW *win);
+void SetUpMainMenu(WINDOW *win, int* currentChoice);
+void InitMainMenu(WINDOW *win, int* currentChoice);
 void InitMainMenuRecheck(WINDOW *win);
 
 #endif

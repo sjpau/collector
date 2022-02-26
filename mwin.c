@@ -46,15 +46,12 @@ void RenderMainMenuChoices(WINDOW *win){
 	}
 }
 
-void SetUpMainMenu(WINDOW *win){
+void SetUpMainMenu(WINDOW *win, int* currentChoice){
 
 
 	int menuInput;
   bool exitMainMenu = false;
-	int currentChoice = 0;
-	
-	int Y = GetCenterY(stdscr);
-	int X = GetCenterX(stdscr);
+
 	
 	while (1){
 	    menuInput = wgetch(win);
@@ -76,24 +73,17 @@ void SetUpMainMenu(WINDOW *win){
 						++highlight;
 					break;
 				case 10:
-					currentChoice = highlight;
-					switch(currentChoice){
+					*currentChoice = highlight;
+					switch(*currentChoice){
 						case 1:
 						/*TODO: here map prints into new window and the game starts*/
-							exitMainMenu = true;
-		  				wrefresh(win);
-							clear();
-							delwin(win);	
-							PrintMap(stdscr, 60, 30);
-							StartMainGameLoop(stdscr, &Y, &X);
+		  				exitMainMenu = true;
 							break;
 						case 2:
 						/*TODO: loads window with explained default keybindings*/
-							printf("%d", currentChoice);
 							break;
 						case 3:
 						/*TODO: loads window with credits*/
-							printf("%d", currentChoice);
 							break;
 						case 4:
 							exitMainMenu = true;
@@ -107,16 +97,20 @@ void SetUpMainMenu(WINDOW *win){
 			RenderMainMenuChoices(win);
 		
 		if (exitMainMenu == true){
+			wborder(win, ' ', ' ', ' ',' ',' ',' ',' ',' ');
+			wrefresh(win);
+			delwin(win);	
+			clear();
 			break;
 			}	
 		}
 }	
 
-void InitMainMenu(WINDOW *win){
+void InitMainMenu(WINDOW *win, int* currentChoice){
 
 	keypad(win, TRUE);
 	RenderMainMenuChoices(win);
-	SetUpMainMenu(win);	
+	SetUpMainMenu(win, currentChoice);	
 
 }
 

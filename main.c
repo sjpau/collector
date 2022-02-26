@@ -9,6 +9,8 @@ int main(int argc, char *argv[]){
 static int x; 
 static int y;
 
+int currentChoice = 0;
+
 WINDOW *mainMenu;
 WINDOW *dialogWindow;
 	initscr();
@@ -24,7 +26,23 @@ WINDOW *dialogWindow;
 	y = (getmaxy(stdscr) - MM_HEIGHT) / 2;
 	mainMenu = newwin(MM_HEIGHT, MM_WIDTH, y, x);
 	
-	InitMainMenu(mainMenu);
+	InitMainMenu(mainMenu, &currentChoice);
+	
+	int Y = GetCenterY(stdscr);
+	int X = GetCenterX(stdscr);
+
+	switch (currentChoice){
+		case 1:
+			PrintMap(stdscr, 60, 30);
+			StartMainGameLoop(stdscr, &Y, &X);
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;	
+	}
 		
 /*screen closed*/
 
