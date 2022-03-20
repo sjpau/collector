@@ -7,9 +7,24 @@
 #define GW_WIDTH 65
 #define GW_HEIGHT 35
 
-void RenderMainMenuChoices(WINDOW *win);
-void SetUpMainMenu(WINDOW *win, int* currentChoice);
-void InitMainMenu(WINDOW *win, int* currentChoice);
-void InitMainMenuRecheck(WINDOW *win);
+static char *mainMenuChoices[] = {
+(char*)	"Start game",
+(char*)	"Keyboard controls",
+(char*)	"Credits",
+(char*)	"Exit",
+};
+
+struct winparams{
+	int starty;
+	int startx; 
+	int width;
+	int height;
+};
+
+WINDOW *InitWin(int y, int x, int width, int height);
+void InitDefaultParams(struct winparams *p);
+void RenderMainMenuChoices(WINDOW *win, char *choices, int *noc, int *h);
+void MainMenuAction(WINDOW *win, char *choices, int *noc, int *h, int *currentChoice, int *action );
+void DeleteWindow(WINDOW *win);
 
 #endif
