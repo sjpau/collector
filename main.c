@@ -5,6 +5,13 @@
 #include "mwin.h"
 #include <stdlib.h>
 
+char *mainMenuChoices[] = {
+	"Start game",
+	"Keyboard controls",
+	"Credits",
+	"Exit",
+};
+
 void InitCurses(){
 	initscr();
   raw();
@@ -35,7 +42,7 @@ x = (getmaxx(stdscr) - MM_WIDTH) / 2;
 y = (getmaxy(stdscr) - MM_HEIGHT) / 2;
 WINDOW *mainMenu = InitWin(y, x, MM_WIDTH, MM_HEIGHT);	
 
-MainMenuAction(mainMenu, *mainMenuChoices, &numberOfMainMenuChoices, &highlight, &currentChoice, &action);
+MainMenuAction(mainMenu, mainMenuChoices, &numberOfMainMenuChoices, &highlight, &currentChoice, &action);
 	do{	
 	
 	int Y = GetCenterY(stdscr);

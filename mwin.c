@@ -20,17 +20,17 @@ void InitWinDefaultParams(struct winparams *p){
 
 }
 
-void RenderMainMenuChoices(WINDOW *win, char *choices, int *noc, int *h){                                         
+void RenderMainMenuChoices(WINDOW *win, char *choices[], int *noc, int *h){                                         
   int x, y, z;
   x = 5;
   y = 3;
   for (z = 0; z < *noc; ++z){
 	  if (*h == z + 1){
  	  	wattron(win, A_REVERSE);
-    	mvwprintw(win, y, x, "%s", &choices[z]);
+    	mvwprintw(win, y, x, "%s", choices[z]);
     	wattroff(win, A_REVERSE);
       } else
-   	  mvwprintw(win, y, x, "%s", &choices[z]);
+   	  mvwprintw(win, y, x, "%s", choices[z]);
   	++y;
 }
 }
@@ -41,7 +41,7 @@ void DeleteWindow(WINDOW *win){
 	delwin(win);
 }
 
-void MainMenuAction(WINDOW *win, char *choices, int *noc, int *h, int *currentChoice, int *action){
+void MainMenuAction(WINDOW *win, char *choices[], int *noc, int *h, int *currentChoice, int *action){
 	int menuInput;
 	menuInput = wgetch(win);
 	do{
