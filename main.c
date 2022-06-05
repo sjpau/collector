@@ -1,57 +1,50 @@
 #include <ncurses.h>
-#include "mv.c"
-#include "dial.c"
+#include "mv.h"
 #include "rooms.h"
+#include <stdlib.h>
 
-/*keys*/
-#define w         'w'
-#define W         'W'
-#define a         'a' 
-#define A         'A'
-#define s         's'
-#define S         'S'
-#define d         'd'
-#define D         'D'
-#define q         'q'
-#define Q         'Q'
+char *mainMenuChoices[] = {
+	"Start game",
+	"Keyboard controls",
+	"Credits",
+	"Exit",
+};
 
-int main(){
-
-  initscr();
+void InitCurses(){
+	initscr();
   raw();
   cbreak();
   noecho(); 
-  curs_set(0);
-/*screen initialized*/
- /*  PrintSentence(sen); sentence is put for printing*/
-  PrintMap(60, 30);
-/*main game loop*/
-	int input;
-  do {
-    input = getch();
-    switch (input){
-      case w:
-      case W:
-        HeroMoveUp();
-        break; 
-      case s:
-      case S:
-        HeroMoveDown();
-        break;
-      case d:
-      case D:
-        HeroMoveRight();
-        break;
-      case a:
-      case A:
-        HeroMoveLeft();
-        break;
-    }
- } while ((input != q) && (input != Q));
-
-	/*screen closed*/
-  getch();
+	keypad(stdscr, TRUE);	
+	curs_set(0);
   refresh();
+}
+
+int main(int argc, char *argv[]){
+
+static int x; 
+static int y;
+
+int numberOfMainMenuChoices = sizeof(mainMenuChoices) / sizeof(char *);
+int highlight = 1;
+int currentChoice = 0;
+int action = 0; /* 1. Start game
+									 2. Keyboard control
+									 3. Credits
+									 4. Exit
+								*/
+InitCurses();
+/*screen initialized*/
+	
+	
+	int Y = GetCenterY(stdscr);
+	int X = GetCenterX(stdscr);
+	
+			PrintMap(stdscr, 60, 30);
+			StartMainGameLoop(stdscr, &Y, &X);
+	
+/*screen closed*/
+
   endwin();
 
   return 0;

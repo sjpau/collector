@@ -1,77 +1,164 @@
 #include "rooms.h"
+#include "presets.h"
 #include <ncurses.h>
+#include <stdlib.h>
+#include <time.h>
 
-/*symbol definitions*/
-#define WALL      '#'
 
-/*TODO: allow user to choose specific char symbol*/
-void PrintHorizontal(int width, int stX, int stY, int edge, bool right) {
-  if(right) {
+void PrintHorizontal(WINDOW* win, int width, int stX, int stY, int edge, bool right) {
+  if (right) {
     for (int i = 0; i < width + edge; ++i) {
-      mvaddch(stY, stX++, WALL);
-      refresh();
-      napms(40);
+      mvwaddch(win, stY, stX++, WALL);
+      wrefresh(win);
+      napms(PRINT_DELAY_MS);
     }
   } else {
     for (int i = 0; i < width + edge; ++i) {
-      mvaddch(stY, stX--, WALL);
-      refresh();
-      napms(40);
+      mvwaddch(win, stY, stX--, WALL);
+      wrefresh(win);
+      napms(PRINT_DELAY_MS);
     }
   } 
 }
 
-void PrintVertical(int height, int stX, int stY, int edge, bool up) {
-  if(up) {
+void PrintVertical(WINDOW* win, int height, int stX, int stY, int edge, bool up) {
+  if (up) {
     for (int i = 0; i < height + edge; ++i) {
-      mvaddch(stY--, stX, WALL);
-      refresh();
-      napms(40);
+      mvwaddch(win, stY--, stX, WALL);
+      wrefresh(win);
+      napms(PRINT_DELAY_MS);
     }
   } else {
       for (int i = 0; i < height + edge; ++i) {
-      mvaddch(stY++, stX, WALL);
-      refresh();
-      napms(40);
-   }
+      mvwaddch(win, stY++, stX, WALL);
+      wrefresh(win);
+      napms(PRINT_DELAY_MS);
+    }
   }
 }
 
-void PrintMap(int width, int height) {
-  int x;
-  int y;
+int GetCenterX(WINDOW* win) {
+    return getmaxx(win)/2;
+}
+
+int GetCenterY(WINDOW* win) {
+    return getmaxy(win)/2;
+}
+
+/*This Function Prints Presets, see examples below in PrintMap and Read Documentation about AllocatePresets*/
+void PrintWalls(WINDOW* win, int rows, int columns, char** mat, int startX, int startY) {
+    int currentX = startX;
+    int currentY = startY;
+
+    for (int i = 0; i < rows; i++) {
+	for (int j = 0; j < columns; j++) {
+	    if (mat[i][j] == WALL) {
+		    mvwaddch(win, currentY, currentX + j, WALL);
+		    wrefresh(win);
+		    napms(PRINT_DELAY_MS);
+	    }
+	}
+	currentX = startX;
+	currentY++;
+    }
+}
+
+/*If you want to add your own preset, you must Allocate it using function AllocatePresets:
+*mat: Argument mat is Matrix where this function allocates current Preset (in our example it is presets);
+*/
+void AllocatePresets(int numberOfPresets, char** mat[numberOfPresets], int rowsInPreset, int columnsInPreset, char currentPreset[rowsInPreset][columnsInPreset], int presetIndex) {
+   mat[presetIndex] = malloc(rowsInPreset * sizeof(char*));
+   for (int i = 0; i < rowsInPreset; i++) {
+	mat[presetIndex][i] = malloc(columnsInPreset * sizeof(char));
+	for (int j = 0; j < columnsInPreset; j++) {
+	    mat[presetIndex][i][j] = currentPreset[i][j];
+	}    
+   }
+}
+
+void FreeSpace(int numberOfPresets, int rowsInPreset, char** mat[numberOfPresets]) {
+    for (int matIt = 0; matIt < numberOfPresets; matIt++) {
+	for (int i = 0; i < rowsInPreset; i++) {
+	    free(mat[matIt][i]);
+	}
+	free(mat[matIt]);
+    }
+}	
+
+int RandomGeneration(int* banned, int max, int min) { 
+    if (banned[3]) srand(time(0));
+    int result = (rand()%(max - min + 1) + min);
+    for (int i = 0; i < 3; i++) {
+	if (result == banned[i]) {
+	    banned[3] = false;
+	    result = RandomGeneration(banned, max, min);
+	}
+    }
+    banned[3] = true;
+    return result; 
+}
+
+void PrintMap(WINDOW* win, int width, int height) {
+  int edge = 3;
   
-  /*allocate coordinates of the center*/
-  getmaxyx(stdscr, y, x);
-  int centerX = x/2;
-  int centerY = y/2;
-
-  /* should be removed after testing*/
-  //mvaddch(centerY, centerX, '#');
-
-  /*define the width and the height of squares*/
   int sqrWidth = width/2;
   int sqrHeight = height/2;
-
-  /*selecting the starting point of drawing
-   * in this case this point is bottom-right node of the map */
+  
+  int centerX = GetCenterX(win);
+  int centerY = GetCenterY(win); 
+  
   int botRightX = centerX + sqrWidth + 1;
   int botRightY = centerY + sqrHeight + 1;
 
-  /*calculating the top-right node of the map*/
   int topRightX = botRightX;
   int topRightY = botRightY - height - 2;
 
-  /*calculating the top-left node of the map*/
   int topLeftX = botRightX - width - 2;
   int topLeftY = topRightY;
 
-  /*calculation the bot-left node of the map*/
   int botLeftX = topLeftX;
   int botLeftY = botRightY; 
-  /*Drawing edge walls*/
-  PrintVertical(height, botRightX, botRightY, 3, true);
-  PrintHorizontal(width, topRightX, topRightY, 3, false);
-  PrintVertical(height, topLeftX, topLeftY, 3, false);
-  PrintHorizontal(width, botLeftX, botLeftY, 3, true);
+  
+  PrintVertical(win, height, botRightX, botRightY, edge, true);
+  PrintHorizontal(win, width, topRightX, topRightY, edge, false);
+  PrintVertical(win, height, topLeftX, topLeftY, edge, false);
+  PrintHorizontal(win, width, botLeftX, botLeftY, edge, true);
+
+  int numberOfPresets = 10; 
+  char** presets[numberOfPresets];
+  
+  AllocatePresets(numberOfPresets, presets, sqrHeight, sqrWidth, presetN1, 0);
+  AllocatePresets(numberOfPresets, presets, sqrHeight, sqrWidth, presetN2, 1);
+  AllocatePresets(numberOfPresets, presets, sqrHeight, sqrWidth, presetN3, 2);
+  AllocatePresets(numberOfPresets, presets, sqrHeight, sqrWidth, presetN4, 3);
+  AllocatePresets(numberOfPresets, presets, sqrHeight, sqrWidth, presetN5, 4);
+  AllocatePresets(numberOfPresets, presets, sqrHeight, sqrWidth, presetN6, 5);
+  AllocatePresets(numberOfPresets, presets, sqrHeight, sqrWidth, presetN7, 6);
+  AllocatePresets(numberOfPresets, presets, sqrHeight, sqrWidth, presetN8, 7);
+  AllocatePresets(numberOfPresets, presets, sqrHeight, sqrWidth, presetN9, 8);
+  AllocatePresets(numberOfPresets, presets, sqrHeight, sqrWidth, presetN10, 9);
+  
+  /*Organizing Random Presets Drawing*/
+  /*Test version*/
+  int presetIndex;
+  int min = 0;
+  int max = numberOfPresets - 1;
+  int banned[4] = {-1, -1, -1, true};
+
+  presetIndex = RandomGeneration(banned, max, min);
+  banned[0] = presetIndex;
+  PrintWalls(win, sqrHeight, sqrWidth, presets[presetIndex], topLeftX + 1, topLeftY + 1);
+
+  presetIndex = RandomGeneration(banned, max, min);
+  banned[1] = presetIndex;
+  PrintWalls(win, sqrHeight, sqrWidth, presets[presetIndex], centerX + 1, centerY +1);
+
+  presetIndex = RandomGeneration(banned, max, min);
+  banned[2] = presetIndex;
+  PrintWalls(win, sqrHeight, sqrWidth, presets[presetIndex], topLeftX + 1, topLeftY + 1 + 16);
+
+  presetIndex = RandomGeneration(banned, max, min);
+  PrintWalls(win, sqrHeight, sqrWidth, presets[presetIndex], centerX + 1, centerY - 15);
+
+  FreeSpace(numberOfPresets, sqrHeight, presets);
 }
